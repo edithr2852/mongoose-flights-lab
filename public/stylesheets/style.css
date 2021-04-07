@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgb(89, 82, 102);
+}
+
+.btn-custom {
+    border-radius: 100px;
+    background-color: goldenrod;
+}
+
+/* Index page styling */
+.navbar {
+  background-color: rgb(54, 47, 63);
+}
+
+.nav-link {
+    color: rgb(255, 255, 255);
+}
+
+.container {
+  color: black;
+  background-color: rgb(89, 82, 102);
+}
+
+.container-fluid {
+  width: 97%;
+}
+.expired {
+  color: red;
+}
+
+.valid {
+  color: black;
+}
+
+#flight-data-row {
+  margin: 1.1em 0;
+}
+
+.border-bottom {
+  border-bottom: 2px solid black;
+}
+
+h4 {
+  margin-top: 20px;
+}
+
+button:disabled {
+  color: black;
+}
