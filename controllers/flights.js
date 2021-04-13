@@ -1,47 +1,52 @@
-const Flight = require('../models/flight')
+const Flight = require("../models/flight");
+const Ticket = require("../models/ticket")
+
+
 
 function index(req, res) {
-    Flight.find({}, function(err, flights) {
-        res.render('flights/index', {flights})
-    })
+  Flight.find({}, function (err, flights) {
+    console.log(flights);
+    res.render("flights/index", { title: "Flights", flights });
+  });
 }
 
 function show(req, res) {
-    console.log('hitting')
-    Flight.findById(req.params.id)
-      .populate("cast")
-      .exec(function (err, movie) {
-        Performer.find({ _id: { $nin: movie.cast } }, function (err, performers) {
-          console.log(performers);
-          res.render("movies/show", {
-            title: "Movie Detail",
-            movie,
-            performers,
-          });
-        });
+  Flight.findById(req.params.id, function (err, flight) {
+   Ticket.find({ _id: { $nin: flight.ticket } }, function (err, tickets) {
+      console.log(tickets);
+      res.render("flights/show", {
+        title: "Flight Detail",
+        flight,
+        tickets,
       });
-  }
+    });
+  });
+}
+  
+  
+
 
 function newFlight(req, res) {
-    res.render('flights/new')
+  res.render("flights/new", { title: "Add Flight" });
+  
 }
 
 function create(req, res) {
-    req.body.departs = req.body.departs.replace(/\s*,\s*/g, ",");
-    if(req.body.departs) req.body.departs = req.body.departs.split(",");
-    const flight = new Flight(req.body);
-    flight.save(function(err) {
-        if(err) return res.render('flights/new');
-        console.log(flight)
-
-        res.redirect('/flights'); 
-    })
-
+  const flight = new Flight(req.body);
+  console.log(req.body);
+  flight.save(function (err) {
+    // one way to handle errors
+    if (err) return res.json({error: err });
+    console.log(flight);
+    res.redirect("/flights");
+  });
 }
+
 
 
 module.exports = {
-    index,
-    new: newFlight,
-    create
-}
+  new: newFlight,
+  create,
+  index,
+  show,
+};
